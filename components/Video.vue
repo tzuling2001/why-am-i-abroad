@@ -63,6 +63,7 @@ watch(isOpen, (open) => {
 })
 
 let observer = null
+let scrollRoot = null
 let scrollRafId = null
 let isInView = false
 let isWatchingScroll = false
@@ -70,6 +71,13 @@ let isWatchingScroll = false
 const isElementCenteredInViewport = (target) => {
   const rect = target.getBoundingClientRect()
   const elCenterY = rect.top + rect.height / 2
+
+  if (scrollRoot) {
+    const rootRect = scrollRoot.getBoundingClientRect()
+    const rootCenterY = rootRect.top + rootRect.height / 2
+    return Math.abs(elCenterY - rootCenterY) <= props.centerTolerance
+  }
+
   const viewportCenterY = window.innerHeight / 2
   return Math.abs(elCenterY - viewportCenterY) <= props.centerTolerance
 }
@@ -85,6 +93,7 @@ const scheduleCenterCheck = () => {
 const startScrollWatch = () => {
   if (isWatchingScroll) return
   isWatchingScroll = true
+  scrollRoot?.addEventListener('scroll', scheduleCenterCheck, { passive: true })
   window.addEventListener('scroll', scheduleCenterCheck, { passive: true })
   window.addEventListener('resize', scheduleCenterCheck, { passive: true })
 }
@@ -92,6 +101,7 @@ const startScrollWatch = () => {
 const stopScrollWatch = () => {
   if (!isWatchingScroll) return
   isWatchingScroll = false
+  scrollRoot?.removeEventListener('scroll', scheduleCenterCheck)
   window.removeEventListener('scroll', scheduleCenterCheck)
   window.removeEventListener('resize', scheduleCenterCheck)
   if (scrollRafId) {
@@ -198,6 +208,8 @@ onMounted(() => {
 
   if (!triggerRef.value) return
 
+  scrollRoot = triggerRef.value.closest('.phone-viewport')
+
   observer = new IntersectionObserver(
     (entries) => {
       isInView = entries[0]?.isIntersecting ?? false
@@ -211,6 +223,7 @@ onMounted(() => {
     },
     {
       threshold: 0,
+      root: scrollRoot,
       rootMargin: '0px',
     },
   )

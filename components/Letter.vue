@@ -12,7 +12,7 @@ const { webLoading } = storeToRefs(allStore)
 const data = [
 "首先，由衷感謝大家對於黃資玲的支持與\n包容。",
 "關於近期接連發生的 {{{[[ 未出席?!!事件]] ",
-"Ỏ̷͖͈̞̩͎̻̫̫̜͉̠̫͕̭̭̫̫̹̗̹͈̼̠̖͍͚̥͈̮̼͕̠̤̯̻̥̬̗̼̳̤̳̬̪̹͚̞̼̠͕̼̠̦͚̫͔̯̹͉͉̘͎͕̼̣̝͙̱̟̹̩̟̳̦̭͉̮̖̭̣̣̞̙̗̜̺̭̻̥͚͙̝̦̲̱͉͖͉̰̦͎̫̣̼͎͍̠̮͓̹̹͉̤̰̗̙͕͇͔̱͕̭͈̳̗̭͔̘̖̺̮̜̠͖̘͓̳͕̟̠̱̫̤͓͔̘̰̲͙͍͇̙͎̣̼̗̖͙̯͉̠̟͈͍͕̪͓̝̩̦̖̹̼̠̘̮͚̟͉̺̜͍͓̯̳̱̻͕̣̳͉̻̭̭̱͍̪̩̭̺͕̺̼̥̪͖̦̟͎̻̰_Ỏ̷͖͈̞̩͎̻̫̫̜͉̠̫͕̭̭̫̫̹̗̹͈̼̠̖͍͚̥͈̮̼͕̠̤̯̻̥̬̗̼̳̤̳̬̪̹͚̞̼̠͕̼̠̦͚̫͔̯̹͉͉̘͎͕̼̣̝͙̱̟̹̩̟̳̦̭͉̮̖̭̣̣̞̙̗̜̺̭̻̥͚͙̝̦̲̱͉͖͉̰̦͎̫̣̼͎͍̠̮͓̹̹͉̤̰̗̙͕͇͔̱͕̭͈̳̗̭͔̘̖̺̮̜̠͖̘͓̳͕̟̠̱̫̤͓͔̘̰̲͙͍͇̙͎̣̼̗̖͙̯͉̠̟͈͍͕̪͓̝̩̦̖̹̼̠̘̮͚̟͉̺̜͍͓̯̳̱̻͕̣̳͉̻̭̭̱͍̪̩̭̺͕̺̼̥̪͖̦̟͎̻̰ ",
+"(☍﹏⁰)(ﾛﾟ)┌┛Σ(ﾉ´*ω*`)ﾉL(　；ω；)┘三└(；ω；　)」",
 "讓我意識到這讓我人生的童年玩伴與未來人生重要的心靈夥伴感到失望，而這是我最不希望",
 "看到",
 "的情況。",
@@ -25,6 +25,17 @@ const data = [
 "並且，\n再次感謝每一位協助此次道歉補救計畫的好朋友\n，廖曉喬、林孜晏，感謝你們的支持與協助。",
 "最後祝福演出一切順利，每天都要吃早餐～\n誠摯，黃資玲 敬上",
 ]
+
+const cryEmotionText = computed(() => {
+  const text = data[2] ?? ''
+  const chunkSize = 20
+  let result = ''
+  for (let i = 0; i < text.length; i += chunkSize) {
+    if (i > 0) result += '\u200B'
+    result += text.slice(i, i + chunkSize)
+  }
+  return result
+})
 
 // ==============================
 // GSAP Animation（scrub 時間軸驅動逐字變色）
@@ -58,7 +69,7 @@ watch(webLoading, (loading) => {
 
 
 <template>
-  <div id="text-container" class="container w-full">
+  <div id="text-container" class="container w-full min-w-0 max-w-full">
     <!-- 第一段 -->
     <p class="whitespace-pre-line w-full text-left">
       <AtomTextLetterAnimate :text="data[0]"  />
@@ -125,18 +136,26 @@ watch(webLoading, (loading) => {
 }
 
 .inline-img {
-  width: clamp(3rem, 8vw, 10rem);
-  height: clamp(3rem, 8vw, 10rem);
+  width: clamp(2.25rem, 6vw, 10rem);
+  height: clamp(2.25rem, 6vw, 10rem);
   object-fit: cover;
   vertical-align: middle;
 }
 
+@media (max-width: 480px) {
+  .inline-images {
+    gap: 0.5rem;
+    margin-left: 0.5rem;
+  }
+}
+
 p {
-  /* text-align: justify; */
-  /* text-align: justify; */
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   text-wrap: pretty;
   white-space: pre-line;
-  /* font-size: clamp(16px, 1.5vw, 400px); */
   font-size: clamp(12px, 1.5vw, 16px);
   line-height: clamp(1.2, 1.5vw, 1.5);
   letter-spacing: clamp(0.05em, 1.5vw, 0.05em);
@@ -145,8 +164,28 @@ p {
   font-weight: 400;
   font-style: normal;
 }
+
 .cryEmotion {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   mix-blend-mode: hue;
   color: aqua;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+  line-height: 1.35;
+}
+
+.see-phrase {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  max-width: 100%;
+}
+
+.see-phrase .inline-images {
+  margin-left: 0;
 }
 </style>

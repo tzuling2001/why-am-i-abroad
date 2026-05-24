@@ -68,7 +68,7 @@ onUnmounted(() => {
 }
 
 .container {
-  @apply mx-auto flex flex-col items-center justify-center p-6 py-10 text-center z-20 space-y-6;
+  @apply mx-auto flex flex-col items-center justify-center p-6 py-10 text-center z-20 space-y-6 min-w-0;
 }
 .text-zh {
   font-family: "Noto Sans TC", sans-serif;
