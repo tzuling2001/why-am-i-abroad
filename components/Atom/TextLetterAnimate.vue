@@ -8,10 +8,6 @@ const props = defineProps({
     type: String,
     default: 'span'
   },
-  toColor: {
-    type: String,
-    default: 'var(--txt-animate-to, #c80808)'
-  },
   textCenter: {
     type: Boolean,
     default: false
@@ -30,7 +26,6 @@ const letters = computed(() => {
     :is="tag"
     class="txt-animate-wrap"
     :class="{ 'text-center': textCenter }"
-    :style="{ '--txt-animate-to': toColor }"
   >
     <span
       v-for="(char, index) in letters"

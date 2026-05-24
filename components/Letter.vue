@@ -4,7 +4,6 @@ import img13 from '~/assets/image/13.jpg'
 import img14 from '~/assets/image/14.jpg'
 import seeLeft from '~/assets/image/see-left.webp'
 import seeRight from '~/assets/image/see-right.webp'
-import teacher from '~/assets/image/teacher.webp'
 
 const { textAnimation } = useTextScrollAnimation()
 const allStore = useAllStore()
@@ -120,7 +119,7 @@ onMounted(async () => {
   vertical-align: middle;
 }
 
-h4, p {
+p {
   /* text-align: justify; */
   /* text-align: justify; */
   text-wrap: pretty;

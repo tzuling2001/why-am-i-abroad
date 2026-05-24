@@ -13,7 +13,6 @@ export function useTextScrollAnimation() {
       start = 'top top',
       end = 'bottom bottom',
       scrub = 1,
-      // markers = import.meta.dev,
       toColor = '#9ca3af',
       letterDuration = 0.2,
       staggerEach = 0.05
@@ -30,8 +29,7 @@ export function useTextScrollAnimation() {
         trigger: trigger ?? container,
         start,
         end,
-        scrub,
-        // markers
+        scrub
       }
     })
 
@@ -48,17 +46,13 @@ export function useTextScrollAnimation() {
     return textTl
   }
 
-  const destroyTextAnimation = () => {
+  onUnmounted(() => {
     textTl?.scrollTrigger?.kill()
     textTl?.kill()
     textTl = null
-  }
-
-  onUnmounted(destroyTextAnimation)
+  })
 
   return {
-    textTl: () => textTl,
-    textAnimation,
-    destroyTextAnimation
+    textAnimation
   }
 }
