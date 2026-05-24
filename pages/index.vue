@@ -12,7 +12,7 @@ import Hero from '~/components/Hero.vue';
 
 <style>
 .container {
-  @apply mx-auto flex flex-col items-center justify-center p-6 py-10 text-center z-20 space-y-20;
+  @apply mx-auto flex flex-col items-center justify-center p-6 py-10 text-center z-20 space-y-6;
 }
 .text-en {
   font-family: "Tangerine", cursive;
