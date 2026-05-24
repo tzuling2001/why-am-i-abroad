@@ -1,4 +1,8 @@
 <script setup>
+import { withBase } from 'ufo'
+
+const config = useRuntimeConfig()
+
 const props = defineProps({
   src: {
     type: String,
@@ -19,7 +23,9 @@ const props = defineProps({
   },
 })
 
-const encodedSrc = computed(() => encodeURI(withBase(props.src)))
+const encodedSrc = computed(() =>
+  encodeURI(withBase(props.src, config.app.baseURL)),
+)
 
 const triggerRef = ref(null)
 const videoRef = ref(null)

@@ -25,7 +25,7 @@ onUnmounted(() => {
 <template>
   <!-- 外層：手機置中；桌機三欄，左右貼紙滿版 -->
   <div
-    class="page-layout h-dvh min-h-dvh w-full overflow-hidden flex items-center justify-center sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-stretch"
+    class="page-layout h-dvh min-h-dvh w-full overflow-hidden flex items-center justify-center lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-stretch"
   >
     <div class="sticker-side hidden lg:block h-full min-h-0 overflow-hidden opacity-5">
       <ClientOnly>
