@@ -72,7 +72,7 @@ onMounted(() => {
 </script>
 <template>
 <div id="hero" class="w-full h-screen relative overflow-hidden bg-white py-6">
-    <div id="questionSvg" class="w-full max-w-[240px] absolute top-6 -right-2 z-10 mix-blend-difference">
+    <div id="questionSvg" class="w-full max-w-[240px] absolute top-6 -right-1 z-10 mix-blend-difference">
         <img :src="questionSvg" alt="question" class="w-full h-auto" />
     </div>
     <!-- I really -->
@@ -93,7 +93,7 @@ onMounted(() => {
     </p>
 
     <div class="flex justify-end">
-    <img :src="indexChart" alt="why-am-i-abroad" class="w-[70%] h-auto relative -right-2 object-cover"/>
+    <img :src="indexChart" alt="why-am-i-abroad" class="w-[75%] h-auto relative -top-2 -right-2 object-cover"/>
     </div>
     <div id="sorrySvg" class="flex w-full justify-end px-6 absolute bottom-10 right-6">
         <img :src="sorrySvg" alt="Sorry" class="max-w-[200px] w-full" />

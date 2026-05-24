@@ -19,10 +19,10 @@ const data = [
 "也萬分感謝願意協助我完成這次補救計劃的兩位好朋友。",
 "我們明白，這樣的情況不僅影響了偉大的表演者－ 宇彤老師，對於關心音樂藝術的朋友來說也是一種失落，身為富有音樂涵養又充滿知性的人生摯友，未能如約出席，實在是我的失職。我希望能讓您知道，這不是我所希望的，未來我會竭盡所能地避免類似事件再次發生。",
 "在這個時刻，我將更加努力改進在時間安排與雙方溝通的行政程序，保證不會再讓任何重要的時刻從我們的指尖悄然溜走。感謝您對我的包容與理解，我們將謹記這段經歷，也會繼續以我的一百萬分的愛來回應您的期望及呵護這段友誼。",
-"最後，\n對此次失誤照成\n最大傷害的\n簡語彤 女士/老師，",
-"在這裡致上十二萬分的歉意，\n我承諾會更加謹慎與負責任地\n對待未來的每一次機會。",
-"並且，\n再次感謝每一位協助此次道歉補救計畫的好朋友，廖曉喬、林孜晏，\n感謝你們的支持與體諒。",
-"誠摯，黃資玲 敬上"
+"最後，對此次失誤照成最大傷害的\n簡語彤 女士/老師，",
+"在這裡致\n上十二萬分的歉意，\n我承諾會更加謹慎\n與負責任地\n對待未來的每一次機會。",
+"並且，\n再次感謝每一位協助此次道歉補救計畫的好朋友\n，廖曉喬、林孜晏，感謝你們的支持與協助。",
+"最後祝福演出一切順利，每天都要吃早餐～\n誠摯，黃資玲 敬上",
 ]
 
 // ==============================
@@ -47,7 +47,7 @@ onMounted(async () => {
 <template>
   <div id="text-container" class="container w-full">
     <!-- 第一段 -->
-    <p class="whitespace-pre-line w-full">
+    <p class="whitespace-pre-line w-full text-left">
       <AtomTextLetterAnimate :text="data[0]"  />
       <span class="inline-images">
         <img :src="img12" alt="" class="inline-img" />
@@ -56,7 +56,7 @@ onMounted(async () => {
       </span>
     </p>
     <!-- 第二段 -->
-    <p class="overflow-hidden">
+    <p class="overflow-hidden text-left">
       <AtomTextLetterAnimate :text="data[1]" />
       <span class="cryEmotion">{{ data[2] }}</span>
       <AtomTextLetterAnimate :text="data[3]" />
@@ -70,23 +70,32 @@ onMounted(async () => {
       <AtomTextLetterAnimate :text="data[5]" />
     </p>
     <!-- 第三段 -->
-    <p>
+    <p class="text-left">
       <AtomTextLetterAnimate :text="data[6]" />
     </p>
     <!-- 第四段 (video) -->
     <Video src="/videos/對不起.mp4" />
-    <p class="w-full flex flex-col gap-5 py-10">
-      <AtomTextLetterAnimate :text="data[7]" />
-      <AtomTextLetterAnimate :text="data[8]" />
-      <AtomTextLetterAnimate :text="data[9]" />
-    </p>
-    <!-- 第五段 -->
-    <div class="w-full">
-      <Sorry :data="data[10]" />
+
+    <!-- 第五段 (貪吃蛇) -->
+    <div class="relative">
+      <div class="absolute top-0 left-0 w-full h-full">
+        <AtomDeco />
+      </div>
+      <p class="w-full flex flex-col gap-5 py-10 text-left">
+        <AtomTextLetterAnimate :text="data[7]" />
+        <AtomTextLetterAnimate :text="data[8]" />
+        <AtomTextLetterAnimate :text="data[9]" />
+      </p>
     </div>
+    
+    <!-- 第五段 -->
+    <p class="w-full text-center text-center">
+      <AtomTextLetterAnimate :text="data[10]" text-center="true"/>
+    </p>
     <!-- 第六段 -->
-    <p class="w-full flex flex-col gap-5 py-10">
-      <AtomTextLetterAnimate :text="data[11]" />
+    <Sorry :data="data[11]" />
+    <!-- 第七段 -->
+    <p class="w-full flex flex-col gap-5 py-10 text-center">
       <AtomTextLetterAnimate :text="data[12]" />
       <AtomTextLetterAnimate :text="data[13]" />
     </p>
@@ -111,7 +120,7 @@ onMounted(async () => {
 
 h4, p {
   /* text-align: justify; */
-  text-align: justify;
+  /* text-align: justify; */
   text-wrap: pretty;
   white-space: pre-line;
   /* font-size: clamp(16px, 1.5vw, 400px); */
