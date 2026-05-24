@@ -2,7 +2,7 @@
  * 將 #text-container 內 .txt-letter 的變色進度綁定到 ScrollTrigger scrub 時間軸
  */
 export function useTextScrollAnimation() {
-  const { $gsap: gsap } = useNuxtApp()
+  const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp()
 
   let textTl = null
 
@@ -10,9 +10,11 @@ export function useTextScrollAnimation() {
     const {
       container = '#text-container',
       trigger,
+      scroller = '.phone-viewport',
       start = 'top top',
       end = 'bottom bottom',
       scrub = 1,
+      markers = false,
       toColor = '#9ca3af',
       letterDuration = 0.2,
       staggerEach = 0.05
@@ -27,9 +29,11 @@ export function useTextScrollAnimation() {
     textTl = gsap.timeline({
       scrollTrigger: {
         trigger: trigger ?? container,
+        scroller,
         start,
         end,
-        scrub
+        scrub,
+        markers
       }
     })
 
@@ -52,7 +56,12 @@ export function useTextScrollAnimation() {
     textTl = null
   })
 
+  const refreshScrollTrigger = () => {
+    ScrollTrigger?.refresh()
+  }
+
   return {
-    textAnimation
+    textAnimation,
+    refreshScrollTrigger
   }
 }

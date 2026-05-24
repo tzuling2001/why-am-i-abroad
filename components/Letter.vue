@@ -5,8 +5,9 @@ import img14 from '~/assets/image/14.jpg'
 import seeLeft from '~/assets/image/see-left.webp'
 import seeRight from '~/assets/image/see-right.webp'
 
-const { textAnimation } = useTextScrollAnimation()
+const { textAnimation, refreshScrollTrigger } = useTextScrollAnimation()
 const allStore = useAllStore()
+const { webLoading } = storeToRefs(allStore)
 
 const data = [
 "首先，由衷感謝大家對於黃資玲的支持與\n包容。",
@@ -28,10 +29,11 @@ const data = [
 // ==============================
 // GSAP Animation（scrub 時間軸驅動逐字變色）
 // ==============================
-onMounted(async () => {
+const initTextAnimation = async () => {
   await nextTick()
   textAnimation({
     trigger: '#text-container',
+    scroller: '.phone-viewport',
     start: 'top center',
     end: 'bottom bottom',
     scrub: 1,
@@ -40,7 +42,17 @@ onMounted(async () => {
     staggerEach: 0.05,
     toColor: '#9ca3af'
   })
+  refreshScrollTrigger()
+}
+
+onMounted(async () => {
+  await initTextAnimation()
   allStore.markSectionReady('letter')
+})
+
+watch(webLoading, (loading) => {
+  if (loading) return
+  initTextAnimation()
 })
 </script>
 
@@ -78,11 +90,11 @@ onMounted(async () => {
     <Video src="/videos/對不起.mp4" />
 
     <!-- 第五段 (貪吃蛇) -->
-    <div class="relative">
-      <div class="absolute top-0 left-0 w-full h-full">
+    <div class="relative min-h-[200px]">
+      <div class="absolute inset-0 z-0">
         <AtomDeco />
       </div>
-      <p class="w-full flex flex-col gap-5 py-10 text-left">
+      <p class="relative z-10 w-full flex flex-col gap-5 py-10 text-left">
         <AtomTextLetterAnimate :text="data[7]" />
         <AtomTextLetterAnimate :text="data[8]" />
         <AtomTextLetterAnimate :text="data[9]" />

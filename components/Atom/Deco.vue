@@ -222,13 +222,31 @@ function bodyStyle(seg) {
   }
 }
 
-onMounted(() => {
+function setupArena() {
   updateArenaSize()
-  initSnakes()
+  if (arenaSize.value.w && arenaSize.value.h) {
+    initSnakes()
+  }
+}
+
+onMounted(async () => {
+  await nextTick()
+  setupArena()
+
+  if (!arenaSize.value.w || !arenaSize.value.h) {
+    requestAnimationFrame(() => {
+      setupArena()
+    })
+  }
 
   if (arenaRef.value && typeof ResizeObserver !== 'undefined') {
     resizeObserver = new ResizeObserver(() => {
+      const hadSize = arenaSize.value.w > 0 && arenaSize.value.h > 0
       updateArenaSize()
+      const hasSize = arenaSize.value.w > 0 && arenaSize.value.h > 0
+      if (!hadSize && hasSize) {
+        initSnakes()
+      }
     })
     resizeObserver.observe(arenaRef.value)
   }
@@ -292,7 +310,7 @@ onUnmounted(() => {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   z-index: 2;
-  mix-blend-mode: hue;
+  
 }
 
 .deco-snake__body {
