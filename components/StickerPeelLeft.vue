@@ -5,6 +5,14 @@
  */
 import tzLeft from '~/assets/image/tz-left.webp'
 
+const props = defineProps({
+  /** 桌機兩側：填滿父層（滿版） */
+  fill: {
+    type: Boolean,
+    default: false,
+  },
+})
+
 const ready = ref(false)
 const width = ref(116)
 const height = ref(116)
@@ -13,9 +21,15 @@ const peelTo = 45
 const duration = 2.4
 const delay = 0
 
-function onImageLoad(event) {
-  const img = event.target
-  if (!img.naturalWidth) return
+const measureImg = ref(null)
+
+function initFromImage(img) {
+  if (!img?.naturalWidth) return
+
+  if (props.fill) {
+    ready.value = true
+    return
+  }
 
   const maxWidth = 116
   const ratio = img.naturalHeight / img.naturalWidth
@@ -24,11 +38,21 @@ function onImageLoad(event) {
   ready.value = true
 }
 
+function onImageLoad(event) {
+  initFromImage(event.target)
+}
+
+onMounted(() => {
+  if (measureImg.value?.complete) {
+    initFromImage(measureImg.value)
+  }
+})
+
 const rootStyle = computed(() => {
   if (!ready.value) return {}
   return {
-    '--w': `${width.value}px`,
-    '--h': `${height.value}px`,
+    '--w': props.fill ? '100%' : `${width.value}px`,
+    '--h': props.fill ? '100%' : `${height.value}px`,
     '--peel-to': `${peelTo}%`,
     '--duration': `${duration}s`,
     '--delay': `${delay}s`,
@@ -43,10 +67,11 @@ const peelUnderStyle = computed(() => ({
 <template>
   <figure
     class="sticker-left"
-    :class="{ 'is-ready': ready }"
+    :class="{ 'is-ready': ready, 'is-fill': fill }"
     :style="rootStyle"
   >
     <img
+      ref="measureImg"
       :src="tzLeft"
       alt=""
       class="sticker-measure"
@@ -102,6 +127,26 @@ const peelUnderStyle = computed(() => ({
 
 .sticker-left.is-ready {
   opacity: 1;
+}
+
+.sticker-left.is-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.sticker-left.is-fill > .inner {
+  width: 100%;
+  height: 100%;
+}
+
+.sticker-left.is-fill img {
+  object-fit: cover;
+}
+
+.sticker-left.is-fill .peel-under {
+  background-size: cover;
 }
 
 .sticker-measure {

@@ -89,7 +89,7 @@ onMounted(() => {
 })
 </script>
 <template>
-<div id="hero" class="w-full h-screen relative overflow-hidden bg-white py-6">
+<div id="hero" class="w-full min-h-full relative overflow-hidden bg-white py-6">
     <div id="questionSvg" class="w-full max-w-[240px] absolute top-6 -right-1 z-10 mix-blend-difference">
         <img :src="questionSvg" alt="question" class="w-full h-auto" />
     </div>

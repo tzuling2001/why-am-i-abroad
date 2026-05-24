@@ -1,5 +1,5 @@
 <template>
-    <div class="loading fixed inset-0 z-[9999] h-screen w-full flex items-center justify-center overflow-hidden bg-white">
+    <div class="loading absolute inset-0 z-[9999] h-full w-full flex items-center justify-center overflow-hidden bg-white">
         <div class="loading-no absolute opacity-50 inset-0 z-1 flex flex-col items-start justify-start p-6 pointer-events-none" aria-hidden="true">
             <p class="loading-no-text">Noooooo</p>
             <p class="loading-no-text">Noooooo</p>

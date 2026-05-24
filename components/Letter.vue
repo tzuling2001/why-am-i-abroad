@@ -125,9 +125,9 @@ p {
   text-wrap: pretty;
   white-space: pre-line;
   /* font-size: clamp(16px, 1.5vw, 400px); */
-  font-size: 12px;
-  line-height: 1.5;
-  letter-spacing: 0.05em;
+  font-size: clamp(12px, 1.5vw, 16px);
+  line-height: clamp(1.2, 1.5vw, 1.5);
+  letter-spacing: clamp(0.05em, 1.5vw, 0.05em);
   font-family: "Noto Sans TC", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
