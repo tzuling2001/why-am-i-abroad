@@ -19,7 +19,7 @@ const props = defineProps({
   },
 })
 
-const encodedSrc = computed(() => encodeURI(props.src))
+const encodedSrc = computed(() => encodeURI(withBase(props.src)))
 
 const triggerRef = ref(null)
 const videoRef = ref(null)

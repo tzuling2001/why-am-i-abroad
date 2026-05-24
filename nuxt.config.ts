@@ -3,7 +3,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
+  // GitHub Pages 專案站：https://<user>.github.io/<repo>/
   app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

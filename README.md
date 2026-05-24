@@ -27,6 +27,25 @@ npm run build
 npm run preview
 ```
 
+靜態站（GitHub Pages）預覽：
+
+```bash
+nvm use
+NUXT_APP_BASE_URL=/why-am-i-abroad/ npm run generate
+npx serve .output/public
+```
+
+## 部署到 GitHub Pages
+
+遠端儲存庫：[tzuling2001/why-am-i-abroad](https://github.com/tzuling2001/why-am-i-abroad)
+
+1. 將變更推送到 `master`（含 `.github/workflows/deploy.yml`）。
+2. 在 GitHub 儲存庫：**Settings → Pages → Build and deployment → Source** 選 **GitHub Actions**。
+3. 推送後於 **Actions** 分頁確認 workflow 成功；網站網址為  
+   **https://tzuling2001.github.io/why-am-i-abroad/**
+
+若影片放在 `public/videos/`，請一併提交；`Video` 元件會依 `baseURL` 解析路徑。
+
 ## 技術棧
 
 - **Nuxt 3** — Vue 全端框架
