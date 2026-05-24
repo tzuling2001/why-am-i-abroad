@@ -7,6 +7,7 @@ import seeRight from '~/assets/image/see-right.webp'
 import teacher from '~/assets/image/teacher.webp'
 
 const { textAnimation } = useTextScrollAnimation()
+const allStore = useAllStore()
 
 const data = [
 "首先，由衷感謝大家對於黃資玲的支持與\n包容。",
@@ -35,11 +36,12 @@ onMounted(async () => {
     start: 'top center',
     end: 'bottom bottom',
     scrub: 1,
-    markers: true,
+    // markers: true,
     letterDuration: 0.1,
     staggerEach: 0.05,
     toColor: '#9ca3af'
   })
+  allStore.markSectionReady('letter')
 })
 </script>
 

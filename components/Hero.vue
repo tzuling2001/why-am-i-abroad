@@ -66,8 +66,26 @@ const heroAnimation = () => {
     })
 }
 
-onMounted(() => {
+const allStore = useAllStore()
+const { webLoading } = storeToRefs(allStore)
+let heroStarted = false
+
+const startHeroAnimation = () => {
+    if (heroStarted) return
+    heroStarted = true
     heroAnimation()
+}
+
+watch(
+    webLoading,
+    (loading) => {
+        if (!loading) startHeroAnimation()
+    },
+    { immediate: true }
+)
+
+onMounted(() => {
+    allStore.markSectionReady('hero')
 })
 </script>
 <template>

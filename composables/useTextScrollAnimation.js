@@ -13,7 +13,7 @@ export function useTextScrollAnimation() {
       start = 'top top',
       end = 'bottom bottom',
       scrub = 1,
-      markers = import.meta.dev,
+      // markers = import.meta.dev,
       toColor = '#9ca3af',
       letterDuration = 0.2,
       staggerEach = 0.05
@@ -31,7 +31,7 @@ export function useTextScrollAnimation() {
         start,
         end,
         scrub,
-        markers
+        // markers
       }
     })
 
